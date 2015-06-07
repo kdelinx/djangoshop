@@ -142,7 +142,10 @@ class Items(AbstractClass):
         format='PNG',
         options={'quality': 80}
     )
-    likes = models.ManyToManyField(User)
+    likes = models.ManyToManyField(
+        User,
+        related_name='likes_user'
+    )
     weight = models.DecimalField(
         _('Вес'),
         max_digits=5,
@@ -184,7 +187,10 @@ class Items(AbstractClass):
     )
     color = models.ManyToManyField(Color)
     sizes = models.ManyToManyField(Sizes)
-    categories = models.ForeignKey(Category)
+    categories = models.ForeignKey(
+        Category,
+        related_name='category_items'
+    )
 
     class Meta:
         verbose_name = 'Товары'
@@ -195,16 +201,28 @@ class Items(AbstractClass):
 
 
 class Trash(AbstractClass):
-    article = models.ForeignKey(Items)
-    color = models.ForeignKey(Color)
-    sizes = models.ForeignKey(Sizes)
+    article = models.ForeignKey(
+        Items,
+        related_name='article_trash'
+    )
+    color = models.ForeignKey(
+        Color,
+        related_name='color_trash'
+    )
+    sizes = models.ForeignKey(
+        Sizes,
+        related_name='sizes_trash'
+    )
     count = models.SmallIntegerField(
         _('Количество товара'),
         default=0,
         null=False,
         blank=False
     )
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(
+        User,
+        related_name='trash_user'
+    )
     number = models.IntegerField(
         _('Номер заказа')
     )
@@ -218,7 +236,10 @@ class Trash(AbstractClass):
 
 
 class Order(AbstractClass):
-    number = models.ForeignKey(Trash)
+    number = models.ForeignKey(
+        Trash,
+        related_name='number_order'
+    )
     TRAVEL = (
         (0, 'Наличный расчет'),
         (1, 'Безналичный расчет'),
@@ -229,9 +250,13 @@ class Order(AbstractClass):
     )
     various = models.CharField(
         _('Способ доствки'),
-        choices=TRAVEL
+        choices=TRAVEL,
+        max_length=64
     )
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(
+        User,
+        related_name='order_user'
+    )
     date_expiries = models.DateField(
         _('Дата доставки')
     )
@@ -247,7 +272,10 @@ class Order(AbstractClass):
         blank=False,
         null=False
     )
-    telephone = models.ForeignKey(User.telephone)
+    telephone = models.ForeignKey(
+        User,
+        related_name='telephone_user'
+    )
     STATUS = (
         (0, 'Отменен'),
         (1, 'Возвращен'),
@@ -259,7 +287,8 @@ class Order(AbstractClass):
     )
     status = models.CharField(
         _('Статус доставки'),
-        choices=STATUS
+        choices=STATUS,
+        max_length=16
     )
 
     class Meta:
