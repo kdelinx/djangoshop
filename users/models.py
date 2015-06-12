@@ -1,6 +1,7 @@
 # coding: utf-8
 from django.db import models
 from core.models import AbstractClass
+from users.managers import UserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 
@@ -51,6 +52,8 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True
     )
+
+    objects = UserManager()
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = ['telephone', 'country', 'city']
