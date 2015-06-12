@@ -19,6 +19,7 @@ def get_path_items_pic(instance, filename):
     filename = '%s.%s' % (uuid.uuid4(), ext)
     return 'items/%s%s%s' % (filename[:1], filename[2:5], filename)
 
+
 def get_path_gallery_pic(instance, filename):
     ext = filename.split('.')[-1]
     filename = '%s.%s' % (uuid.uuid4(), ext)
@@ -48,8 +49,8 @@ class Category(AbstractClass):
     descriptions = models.TextField()
 
     class Meta:
-        verbose_name = 'Категории'
-        verbose_name_plural = 'категории'
+        verbose_name = u'Категории'
+        verbose_name_plural = u'категории'
 
     def __unicode__(self):
         return self.title
@@ -83,8 +84,8 @@ class Gallery(AbstractClass):
     )
 
     class Meta:
-        verbose_name = 'Галерея'
-        verbose_name_plural = 'галерея'
+        verbose_name = u'Галерея'
+        verbose_name_plural = u'галерея'
 
     def __unicode__(self):
         return self.descriptions
@@ -101,8 +102,8 @@ class Color(AbstractClass):
     )
 
     class Meta:
-        verbose_name = 'Цвет'
-        verbose_name_plural = 'цвет'
+        verbose_name = u'Цвет'
+        verbose_name_plural = u'цвет'
 
     def __unicode__(self):
         return self.name
@@ -117,8 +118,8 @@ class Sizes(AbstractClass):
     )
 
     class Meta:
-        verbose_name = 'Размеры'
-        verbose_name_plural = 'размеры'
+        verbose_name = u'Размеры'
+        verbose_name_plural = u'размеры'
 
     def __unicode__(self):
         return self.number
@@ -177,6 +178,9 @@ class Items(AbstractClass):
         null=False,
         blank=False
     )
+    counter_buy = models.IntegerField(
+        _('Количество покупок')
+    )
     dimensions = models.CharField(
         _('Габариты'),
         max_length=64,
@@ -185,16 +189,22 @@ class Items(AbstractClass):
         _('Материал'),
         max_length=64
     )
-    color = models.ManyToManyField(Color)
-    sizes = models.ManyToManyField(Sizes)
+    color = models.ManyToManyField(
+        Color,
+        related_name='color_items',
+    )
+    sizes = models.ManyToManyField(
+        Sizes,
+        related_name='size_items',
+    )
     categories = models.ForeignKey(
         Category,
-        related_name='category_items'
+        related_name='category_items',
     )
 
     class Meta:
-        verbose_name = 'Товары'
-        verbose_name_plural = 'товары'
+        verbose_name = u'Товары'
+        verbose_name_plural = u'товары'
 
     def __unicode__(self):
         return self.title
@@ -228,8 +238,8 @@ class Trash(AbstractClass):
     )
 
     class Meta:
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'корзина'
+        verbose_name = u'Корзина'
+        verbose_name_plural = u'корзина'
 
     def __unicode__(self):
         return '%s - %s' % (self.article.title, self.number)
@@ -258,7 +268,8 @@ class Order(AbstractClass):
         related_name='order_user'
     )
     date_expiries = models.DateField(
-        _('Дата доставки')
+        _('Дата доставки'),
+        auto_now_add=True,
     )
     address = models.CharField(
         _('Адрес доставки'),
@@ -274,7 +285,7 @@ class Order(AbstractClass):
     )
     telephone = models.ForeignKey(
         User,
-        related_name='telephone_user'
+        related_name='telephone_user',
     )
     STATUS = (
         (0, 'Отменен'),
@@ -288,12 +299,12 @@ class Order(AbstractClass):
     status = models.CharField(
         _('Статус доставки'),
         choices=STATUS,
-        max_length=16
+        max_length=16,
     )
 
     class Meta:
-        verbose_name = 'Заказы'
-        verbose_name_plural = 'заказы'
+        verbose_name = u'Заказы'
+        verbose_name_plural = u'заказы'
 
     def __unicode__(self):
         return '%s - %s (%s)' % (self.number, self.status, self.various)
