@@ -41,12 +41,14 @@ class Category(AbstractClass):
         options={'quality': 60}
     )
     title = models.CharField(
-        _('Заголовок'),
+        'Заголовок',
         max_length=255,
         null=False,
         blank=False
     )
-    descriptions = models.TextField()
+    descriptions = models.TextField(
+        'Описание'
+    )
 
     class Meta:
         verbose_name = u'Категории'
@@ -77,7 +79,7 @@ class Gallery(AbstractClass):
         options={'quality': 60}
     )
     descriptions = models.CharField(
-        _('Описание'),
+        'Описание',
         max_length=255,
         blank=False,
         null=False
@@ -93,11 +95,11 @@ class Gallery(AbstractClass):
 
 class Color(AbstractClass):
     name = models.CharField(
-        _('Цвет'),
+        'Цвет',
         max_length=255
     )
     hex = models.CharField(
-        _('hex цвета'),
+        'hex цвета',
         max_length=6
     )
 
@@ -111,7 +113,7 @@ class Color(AbstractClass):
 
 class Sizes(AbstractClass):
     number = models.SmallIntegerField(
-        _('Размеры'),
+        'Размеры',
         default=0,
         blank=False,
         null=False
@@ -122,12 +124,12 @@ class Sizes(AbstractClass):
         verbose_name_plural = u'размеры'
 
     def __unicode__(self):
-        return self.number
+        return '%s' % self.number
 
 
 class Items(AbstractClass):
     title = models.CharField(
-        _('Наименование'),
+        'Наименование',
         max_length=255
     )
     img = ProcessedImageField(
@@ -148,45 +150,48 @@ class Items(AbstractClass):
         related_name='likes_user'
     )
     weight = models.DecimalField(
-        _('Вес'),
+        'Вес',
         max_digits=5,
         decimal_places=2
         # max_value = 999.99
     )
     probe = models.SmallIntegerField(
-        _('Проба'),
+        'Проба',
         default=0,
         null=True,
         blank=True
     )
     price = models.IntegerField(
-        _('Цена')
+        'Цена'
     )
     price_per_gramm = models.SmallIntegerField(
-        _('Цена за грамм'),
+        'Цена за грамм',
         default=0,
         null=True,
         blank=True
     )
     descriptions = models.TextField(
-        _('Описание')
+        'Описание'
     )
-    gallery = models.ManyToManyField(Gallery)
+    gallery = models.ManyToManyField(
+        Gallery,
+        related_name='gallery_items',
+    )
     balance = models.SmallIntegerField(
-        _('Остаток'),
+        'Остаток',
         default=0,
         null=False,
         blank=False
     )
     counter_buy = models.IntegerField(
-        _('Количество покупок')
+        'Количество покупок'
     )
     dimensions = models.CharField(
-        _('Габариты'),
+        'Габариты',
         max_length=64,
     )
     material = models.CharField(
-        _('Материал'),
+        'Материал',
         max_length=64
     )
     color = models.ManyToManyField(
@@ -209,6 +214,9 @@ class Items(AbstractClass):
     def __unicode__(self):
         return self.title
 
+    def get_color(self):
+        return '#%s' % self.color
+
 
 class Trash(AbstractClass):
     article = models.ForeignKey(
@@ -224,7 +232,7 @@ class Trash(AbstractClass):
         related_name='sizes_trash'
     )
     count = models.SmallIntegerField(
-        _('Количество товара'),
+        'Количество товара',
         default=0,
         null=False,
         blank=False
@@ -234,7 +242,7 @@ class Trash(AbstractClass):
         related_name='trash_user'
     )
     number = models.IntegerField(
-        _('Номер заказа')
+        'Номер заказа'
     )
 
     class Meta:
@@ -259,7 +267,7 @@ class Order(AbstractClass):
         (5, 'WebMoney (WMR/WMZ)'),
     )
     various = models.CharField(
-        _('Способ доствки'),
+        'Способ доствки',
         choices=TRAVEL,
         max_length=64
     )
@@ -268,17 +276,17 @@ class Order(AbstractClass):
         related_name='order_user'
     )
     date_expiries = models.DateField(
-        _('Дата доставки'),
+        'Дата доставки',
         auto_now_add=True,
     )
     address = models.CharField(
-        _('Адрес доставки'),
+        'Адрес доставки',
         max_length=255,
         blank=False,
         null=False
     )
     index = models.CharField(
-        _('Индекс'),
+        'Индекс',
         max_length=6,
         blank=False,
         null=False
@@ -297,7 +305,7 @@ class Order(AbstractClass):
         (6, 'В пути'),
     )
     status = models.CharField(
-        _('Статус доставки'),
+        'Статус доставки',
         choices=STATUS,
         max_length=16,
     )

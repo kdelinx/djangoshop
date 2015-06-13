@@ -3,6 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xux0er7jwr=$p8hdq!65+os!^qt!7fakgdebb-w!(_fr#r$$oq'
 DEBUG = True
+TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'users.User'
 INSTALLED_APPS = (
@@ -12,6 +13,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'core',
     'users',
     'items',
@@ -27,6 +29,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 ROOT_URLCONF = 'djangoshop.urls'
+STATICFILES_FINDER = (
+    'compressor.finders.CompressorFinder',
+)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -53,8 +58,9 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+COMPRESS_ENABLED = True
 LANGUAGE_CODE = 'ru-RU'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -62,3 +68,20 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+STATICFILE_DIRS = (
+    os.path.join(BASE_DIR, 'core/static')
+)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
+MEDIA_URL = '/files/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_URL = '/assets/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_AFTER_SINGUP = True
+CACHE = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'foobar'),
+    }
+}

@@ -8,20 +8,20 @@ from django.utils.translation import ugettext_lazy as _
 
 class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
     login = models.CharField(
-        _('Логин'),
+        _('Login'),
         max_length=255,
         null=False,
         blank=False,
         unique=True
     )
     name = models.CharField(
-        _('Имя'),
+        _('Name'),
         max_length=64,
         blank=True,
         null=True
     )
     first_name = models.CharField(
-        _('Фамилия'),
+        _('First name'),
         max_length=64,
         blank=True,
         null=True
@@ -32,7 +32,7 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         unique=True
     )
     telephone = models.CharField(
-        _('Телефон'),
+        _('Telephone'),
         max_length=16,
         blank=True,
         null=True
@@ -40,14 +40,18 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(
         default=True
     )
+
+    is_admin = models.BooleanField(
+        default=True
+    )
     country = models.CharField(
-        _('Страна'),
+        _('Country'),
         max_length=150,
         blank=True,
         null=True
     )
     city = models.CharField(
-        _('Город'),
+        _('Town'),
         max_length=150,
         blank=True,
         null=True
@@ -56,11 +60,11 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'login'
-    REQUIRED_FIELDS = ['telephone', 'country', 'city']
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'пользователь'
+        verbose_name = u'Пользователь'
+        verbose_name_plural = u'пользователь'
 
     def __unicode__(self):
         return self.login
@@ -69,7 +73,11 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         return '%s - %s' % (self.first_name, self.name)
 
     def get_short_name(self):
-        return '%s. %s' % (self.first_name, self.name[0])
+        # return '%s. %s' % (self.first_name, self.name[0])
+        return self.login
+
+    def get_telephone(self):
+        return self.telephone
 
     def has_perm(self, perm, obj=None):
         return True
