@@ -147,7 +147,9 @@ class Items(AbstractClass):
     )
     likes = models.ManyToManyField(
         User,
-        related_name='likes_user'
+        related_name='likes_user',
+        blank=True,
+        null=True,
     )
     weight = models.DecimalField(
         'Вес',
@@ -201,6 +203,8 @@ class Items(AbstractClass):
     sizes = models.ManyToManyField(
         Sizes,
         related_name='size_items',
+        blank=True,
+        null=True
     )
     categories = models.ForeignKey(
         Category,
@@ -253,23 +257,42 @@ class Trash(AbstractClass):
         return '%s - %s' % (self.article.title, self.number)
 
 
+class Travel(AbstractClass):
+    name = models.CharField(
+        'Способ доставки',
+        max_length=32
+    )
+
+    class Meta:
+        verbose_name = u'Способы доставки'
+        verbose_name_plural = u'способы доставки'
+
+    def __unicode__(self):
+        return self.name
+
+
+class Payment(AbstractClass):
+    name = models.CharField(
+        'Способ оплаты',
+        max_length=64
+    )
+
+    class Meta:
+        verbose_name = u'Способы оплаты'
+        verbose_name_plural = u'способы оплаты'
+
+    def __unicode__(self):
+        return self.name
+
+
 class Order(AbstractClass):
     number = models.ForeignKey(
         Trash,
         related_name='number_order'
     )
-    TRAVEL = (
-        (0, 'Наличный расчет'),
-        (1, 'Безналичный расчет'),
-        (2, 'Яндекс.Деньги'),
-        (3, 'Наложенный платеж'),
-        (4, 'Банковская карта'),
-        (5, 'WebMoney (WMR/WMZ)'),
-    )
-    various = models.CharField(
-        'Способ доствки',
-        choices=TRAVEL,
-        max_length=64
+    various = models.ForeignKey(
+        Payment,
+        related_name='payment_order'
     )
     user = models.ForeignKey(
         User,
@@ -294,19 +317,9 @@ class Order(AbstractClass):
         'Телефон',
         max_length=16,
     )
-    STATUS = (
-        (0, 'Отменен'),
-        (1, 'Возвращен'),
-        (2, 'Завершен'),
-        (3, 'В ожидании'),
-        (4, 'Отгрузка'),
-        (5, 'В процессе'),
-        (6, 'В пути'),
-    )
-    status = models.CharField(
-        'Статус доставки',
-        choices=STATUS,
-        max_length=16,
+    status = models.ForeignKey(
+        Travel,
+        related_name='travel_order'
     )
 
     class Meta:
