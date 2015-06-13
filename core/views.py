@@ -1,33 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from core.models import Pages
+
+def static(request, page):
+    article = get_object_or_404(Pages, page=page)
+    context = {
+        'txt': Pages.objects.get(page=article.page)
+    }
+    return render(request, 'core/static.html', context)
 
 
-def about(request):
+def error404(request):
     pass
 
 
-def last_items(request):
-    pass
-
-
-def updated_items(request):
-    pass
-
-
-def pop_items(request):
-    pass
-
-
-def best_items(request):
-    pass
-
-
-def travel(request):
-    pass
-
-
-def payment(request):
-    pass
-
-
-def rules(request):
+def index(request):
     pass
