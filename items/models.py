@@ -277,7 +277,6 @@ class Order(AbstractClass):
     )
     date_expiries = models.DateField(
         'Дата доставки',
-        auto_now_add=True,
     )
     address = models.CharField(
         'Адрес доставки',
@@ -291,9 +290,9 @@ class Order(AbstractClass):
         blank=False,
         null=False
     )
-    telephone = models.ForeignKey(
-        User,
-        related_name='telephone_user',
+    telephone = models.CharField(
+        'Телефон',
+        max_length=16,
     )
     STATUS = (
         (0, 'Отменен'),
