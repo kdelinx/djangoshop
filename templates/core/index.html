@@ -3,6 +3,8 @@
 {% block base_body %}
 <a href="{% url 'index' %}">Дамой!</a>
 <a href="{% url 'users:profile' %}">Профиль</a>
+<a href="{% url 'items:catalog' %}">КОТалог</a>
+<br>
 Ф карзине(<a href="{% url 'items:trash' %}">{{ count_buy }}</a>) тавараФ!
 <hr>
 Поулярные товары:<br>

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from items.models import Items, Category
+from items.forms import CreateOrder, CreateTrash
 
 
 def catalog(request):
@@ -14,4 +15,8 @@ def catalog(request):
 
 
 def trash(request):
+    pass
+
+
+def order(request):
     pass

@@ -13,7 +13,7 @@ class RUserAdmin(UserAdmin):
                                 'country', 'city',)}),
         (_('Permissions'),  {'fields': ('is_active', 'is_admin', 'is_superuser',)}),
     )
-    list_display = ('id', 'telephone', 'country', 'city',)
+    list_display = ('id', 'email', 'telephone', 'country', 'city',)
     list_filter = ('is_admin', 'country', 'city',)
     search_fields = ('email',)
     ordering = ('id',)
