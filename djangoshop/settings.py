@@ -70,11 +70,11 @@ STATICFILE_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
 MEDIA_URL = '/files/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_URL = '/assets/'
+STATIC_URI = '/assets/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
-LOGIN_AFTER_SINGUP = True
+LOGIN_AFTER_SIGNUP = True
 CACHE = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',

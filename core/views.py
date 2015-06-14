@@ -1,5 +1,8 @@
+# coding: utf-8
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from core.models import Pages
+from items.models import Items, Category, Trash
 
 def static(request, page):
     article = get_object_or_404(Pages, page=page)
@@ -14,4 +17,9 @@ def error404(request):
 
 
 def index(request):
-    pass
+    context = {
+        'pop_items': Items.objects.order_by('likes', 'counter_buy')[:4],
+        'new_items': Items.objects.order_by('-id')[:10],
+        'count_buy': Trash.objects.filter(user=request.user.id).count(),
+    }
+    return render(request, 'core/index.html', context)
