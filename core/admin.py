@@ -1,4 +1,4 @@
-from core.models import Pages
+from core.models import Pages, Slider
 from django.contrib import admin
 
 
@@ -9,3 +9,4 @@ class RCoreAdmin(admin.ModelAdmin):
     save_on_top = True
 
 admin.site.register(Pages, RCoreAdmin)
+admin.site.register(Slider)

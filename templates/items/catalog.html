@@ -13,21 +13,21 @@
         <b><h2><i>Пиздец</i></h2>, нихуя нет...</b>
     {% else %}
         {% for item in items %}
-            <table>
+            <table border="1px">
                 <tr>
-                    <td>{{ item.title }}</td>
+                    <td><b>Тайтл</b> - {{ item.title }}</td>
                 </tr>
                 <tr>
-                    <td><img src="{{ item.preview.url }}"></td>
+                    <td><b>Превьюха</b><br><img src="{{ item.preview.url }}"></td>
                 </tr>
                 <tr>
-                    <td>{{ item.likes }}</td>
+                    <td><b>Лайков</b> - {{ item.likes.count }}</td>
                 </tr>
                 <tr>
-                    <td>{{ item.balance }}</td>
+                    <td><b>Баланс</b> - {{ item.balance }}</td>
                 </tr>
                 <tr>
-                    <td>{{ item.descriptions }}</td>
+                    <td><b>Описаловка</b> - {{ item.descriptions }}</td>
                 </tr>
             </table>
         {% endfor %}

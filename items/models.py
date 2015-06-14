@@ -3,7 +3,6 @@ import uuid
 from core.models import AbstractClass
 from django.db import models
 from users.models import User
-from django.utils.translation import ugettext_lazy as _
 from imagekit.models import ProcessedImageField, ImageSpecField
 from pilkit.processors import ResizeToFill
 
@@ -11,7 +10,7 @@ from pilkit.processors import ResizeToFill
 def get_path_category_pic(instance, filename):
     ext = filename.split('.')[-1]
     filename = '%s.%s' % (uuid.uuid4(), ext)
-    return 'cat/%s%s%s' % (filename[:1], filename[2:5], filename)
+    return 'category/%s%s%s' % (filename[:1], filename[2:5], filename)
 
 
 def get_path_items_pic(instance, filename):
@@ -144,6 +143,12 @@ class Items(AbstractClass):
         processors=[ResizeToFill(300, 300)],
         format='PNG',
         options={'quality': 80}
+    )
+    visitors = models.IntegerField(
+        'Просмотры',
+        default=0,
+        blank=True,
+        null=True,
     )
     likes = models.ManyToManyField(
         User,

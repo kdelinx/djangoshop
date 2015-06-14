@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from core.models import Pages
 from items.models import Items, Trash
 
@@ -27,6 +28,7 @@ def index(request):
         'pop_items': Items.objects.order_by('likes', 'counter_buy')[:4],
         'new_items': Items.objects.order_by('-id')[:10],
         'count_buy': Trash.objects.filter(user=request.user.id).count(),
+        'name': settings.PROJECT_NAME,
     }
     a = context['pop_items'].query
     print a

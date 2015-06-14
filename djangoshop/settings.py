@@ -1,5 +1,6 @@
 import os
 
+PROJECT_NAME = 'Jewelry shop for Vlad'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xux0er7jwr=$p8hdq!65+os!^qt!7fakgdebb-w!(_fr#r$$oq'
 DEBUG = True
@@ -7,6 +8,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'users.User'
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
