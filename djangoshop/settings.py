@@ -35,7 +35,7 @@ STATICFILES_FINDER = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,8 +70,8 @@ STATICFILE_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
 MEDIA_URL = '/files/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_URI = '/assets/'
-LOGIN_REDIRECT_URL = '/'
+STATIC_URL = '/assets/'
+LOGIN_REDIRECT_URL = ''
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_AFTER_SIGNUP = True

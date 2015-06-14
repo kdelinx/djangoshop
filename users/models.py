@@ -7,13 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
-    login = models.CharField(
-        _('Login'),
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True
-    )
     name = models.CharField(
         _('Name'),
         max_length=64,
@@ -59,22 +52,21 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'login'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['']
 
     class Meta:
         verbose_name = u'Пользователь'
         verbose_name_plural = u'пользователь'
 
     def __unicode__(self):
-        return self.login
+        return self.email
 
     def get_full_name(self):
         return '%s - %s' % (self.first_name, self.name)
 
     def get_short_name(self):
-        # return '%s. %s' % (self.first_name, self.name[0])
-        return self.login
+        return '%s. %s' % (self.first_name, self.name[0])
 
     def get_telephone(self):
         return self.telephone

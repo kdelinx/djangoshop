@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Рега{% endblock %}
+{% block base_body %}
+    YO - It's a TRUE registration :)
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register" name="submit"> <- Click this MEGA button!
+    </form>
+{% endblock %}

@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Index page{% endblock %}
 {% block base_body %}
-fdfd
+<a href="{% url 'index' %}">Дамой!</a>
+<a href="{% url 'users:profile' %}">Профиль</a>
+Ф карзине(<a href="{% url 'items:trash' %}">{{ count_buy }}</a>) тавараФ!
+<hr>
+Поулярные товары:<br>
+{% for pop_item in pop_items %}
+    Наименование: {{ pop_item.title }}<br>
+    <3: {{ pop_item.likes }} <br>
+    <0>: {{ pop_item.counter_buy }} <br>
+{% endfor %}
+<hr>
+Новые товары:<br>
+{% for new_item in new_items %}
+    Наименование: {{ new_item.title }}<br>
+    <3: {{ new_item.likes }} <br>
+    <0>: {{ new_item.counter_buy }} <br>
+{% endfor %}
+
 {% endblock %}

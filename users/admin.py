@@ -9,13 +9,13 @@ from django.contrib.auth.models import Group
 class RUserAdmin(UserAdmin):
     form = UserCreateForm
     fieldsets = (
-        (_('User'), {'fields': ('email', 'login', 'name', 'first_name', 'telephone',
+        (_('User'), {'fields': ('email', 'name', 'first_name', 'telephone',
                                 'country', 'city',)}),
         (_('Permissions'),  {'fields': ('is_active', 'is_admin', 'is_superuser',)}),
     )
-    list_display = ('id', 'email', 'login', 'telephone', 'country', 'city',)
+    list_display = ('id', 'telephone', 'country', 'city',)
     list_filter = ('is_admin', 'country', 'city',)
-    search_fields = ('email', 'login')
+    search_fields = ('email',)
     ordering = ('id',)
 
 

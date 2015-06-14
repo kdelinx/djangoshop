@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Каталог{% endblock %}
+{% block base_body %}
+Категории, кароч...<br>
+{% for foo in category %}
+    Наименование: {{ foo.title }}<br>
+    <img src="{{ foo.preview.url }}"> <br>
+    Описаловка: {{ foo.descriptions }} <hr>
+{% endfor %}
+
+Ну и на последок, тавары!!!<br>
+    {% if items.count == 0 %}
+        <b><h2><i>Пиздец</i></h2>, нихуя нет...</b>
+    {% else %}
+        {% for item in items %}
+            <table>
+                <tr>
+                    <td>{{ item.title }}</td>
+                </tr>
+                <tr>
+                    <td><img src="{{ item.preview.url }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ item.likes }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.balance }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.descriptions }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

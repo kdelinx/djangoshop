@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Юзверь{% endblock %}
+{% block base_body %}
+
+    Мыло: {{ profile.email }} <br/>
+    Трубец: {{ profile.telephone }}
+    <hr>
+    Страна: {{ profile.country }} <br>
+    Город: {{ profile.city }} <br>
+    Имя Фамилия: {{ profile.get_full_name }} <br>
+
+{% endblock %}
