@@ -66,7 +66,8 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         return '%s - %s' % (self.first_name, self.name)
 
     def get_short_name(self):
-        return '%s. %s' % (self.first_name, self.name[0])
+        # return '%s. %s' % (self.first_name, self.name[0])
+        return self.name
 
     def get_telephone(self):
         return self.telephone

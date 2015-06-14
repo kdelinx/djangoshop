@@ -28,5 +28,7 @@ def index(request):
         'new_items': Items.objects.order_by('-id')[:10],
         'count_buy': Trash.objects.filter(user=request.user.id).count(),
     }
+    a = context['pop_items'].query
+    print a
     return render(request, 'core/index.html', context)
 

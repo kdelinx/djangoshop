@@ -2,8 +2,13 @@ from django.contrib import admin
 from items.models import Items, Category, Gallery, Color, Order, Trash, Sizes, Travel, Payment
 
 
+def img():
+    return '<img src="preview.url">'
+
+
 class RItemsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'descriptions', 'balance',)
+
+    list_display = ('title', 'img', 'descriptions', 'price', 'probe', 'balance',)
     list_filter = ('id', 'title', 'probe', 'likes', 'price', 'price_per_gramm',
                    'balance', 'counter_buy', 'color', 'categories',)
     save_on_top = True
