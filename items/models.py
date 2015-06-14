@@ -154,7 +154,6 @@ class Items(AbstractClass):
         User,
         related_name='likes_user',
         blank=True,
-        null=True,
     )
     weight = models.DecimalField(
         'Вес',
@@ -209,7 +208,6 @@ class Items(AbstractClass):
         Sizes,
         related_name='size_items',
         blank=True,
-        null=True
     )
     categories = models.ForeignKey(
         Category,
@@ -312,11 +310,9 @@ class Order(AbstractClass):
         blank=False,
         null=False
     )
-    index = models.CharField(
-        'Индекс',
-        max_length=6,
-        blank=False,
-        null=False
+    index = models.ForeignKey(
+        User,
+        related_name='index_order'
     )
     telephone = models.CharField(
         'Телефон',
@@ -332,4 +328,4 @@ class Order(AbstractClass):
         verbose_name_plural = u'заказы'
 
     def __unicode__(self):
-        return '%s - %s (%s)' % (self.number, self.status, self.various)
+        return '%s - %s (%s)' % (self.number.article, self.status.name, self.various.name)

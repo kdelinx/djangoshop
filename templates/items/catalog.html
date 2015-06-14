@@ -15,7 +15,7 @@
         {% for item in items %}
             <table border="1px">
                 <tr>
-                    <td><b>Тайтл</b> - {{ item.title }}</td>
+                    <td><b>Тайтл</b> - <a href="{% url 'items:item' item.id %}">{{ item.title }}</a></td>
                 </tr>
                 <tr>
                     <td><b>Превьюха</b><br><img src="{{ item.preview.url }}"></td>

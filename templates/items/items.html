@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block base_body %}
+
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+</style>
+
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Название</th>
+    <th class="tg-031e">Превьюха</th>
+    <th class="tg-031e">Просмотры</th>
+    <th class="tg-031e">Лайки</th>
+    <th class="tg-031e">Вес</th>
+    <th class="tg-031e">Проба</th>
+    <th class="tg-031e">Цена</th>
+    <th class="tg-031e">Цена за грамм</th>
+    <th class="tg-031e">Описание</th>
+    <th class="tg-031e">Галлерея</th>
+    <th class="tg-031e">Остаток</th>
+    <th class="tg-031e">Количество покупок</th>
+    <th class="tg-031e">Габариты</th>
+    <th class="tg-031e">Материал</th>
+    <th class="tg-031e">Цвет</th>
+    <th class="tg-031e">Размер</th>
+    <th class="tg-031e">Категория</th>
+  </tr>
+  <tr>
+    <td class="tg-031e">{{ item.title }}</td>
+    <td class="tg-031e"><img src="{{ item.preview.url }}"></td>
+    <td class="tg-031e">{{ item.visitors }}</td>
+    <td class="tg-031e"><a href="{% url 'items:likes' item.id %}">{{ item.likes.count }}</a></td>
+    <td class="tg-031e">{{ item.weight }}</td>
+    <td class="tg-031e">{{ item.probe }}</td>
+    <td class="tg-031e">{{ item.price }}</td>
+    <td class="tg-031e">{{ item.price_per_gramm }}</td>
+    <td class="tg-031e">{{ item.descriptions | truncatechars:180 }}</td>
+    <td class="tg-031e">{% for image in item.gallery.all %}
+                            <center>{{ image.descriptions }}</center>
+                            <img src="{{ image.preview.url }}">
+                        {% endfor %}
+    </td>
+    <td class="tg-031e">{{ item.balance }}</td>
+    <td class="tg-031e">{{ item.counter_buy }}</td>
+    <td class="tg-031e">{{ item.dimensions }}</td>
+    <td class="tg-031e">{{ item.material }}</td>
+    <td class="tg-031e">{% for col in item.color.all %}
+                            <span style="color: #{{ col.hex }}">{{ col.name }}</span><hr><br>
+                        {% endfor %}
+    </td>
+    <td class="tg-031e">{% for size in item.sizes.all %}
+                            {{ size.number }}<br>
+                        {% endfor %}
+    </td>
+    <td class="tg-031e">{{ item.categories }}</td>
+  </tr>
+</table>
+
+{% endblock %}

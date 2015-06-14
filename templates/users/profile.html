@@ -5,8 +5,9 @@
     Мыло: {{ profile.email }} <br/>
     Трубец: {{ profile.telephone }}
     <hr>
+    Имя Фамилия: {{ profile.get_full_name }} <br>
     Страна: {{ profile.country }} <br>
     Город: {{ profile.city }} <br>
-    Имя Фамилия: {{ profile.get_full_name }} <br>
-
+    Индекс: {{ profile.index }} <br>
+    Телепонт: {{ profile.get_telephone }}
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Параша{% endblock %}
+{% block base_body %}
+
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+</style>
+
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Наименование</th>
+    <th class="tg-031e">Цвет</th>
+    <th class="tg-031e">Размер</th>
+    <th class="tg-031e">Количство</th>
+    <th class="tg-031e">Юзверь</th>
+    <th class="tg-031e">Номер заказа</th>
+  </tr>
+{% for foo in trash %}
+  <tr>
+    <td class="tg-031e">{{ foo.article }}</td>
+    <td class="tg-031e">{{ foo.color }}</td>
+    <td class="tg-031e">{{ foo.sizes }}</td>
+    <td class="tg-031e">{{ foo.count }}</td>
+    <td class="tg-031e">{{ foo.user.get_full_name }}</td>
+    <td class="tg-031e">{{ foo.number }}</td>
+  </tr>
+{% endfor %}
+</table>
+<hr>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Запилить">
+    </form>
+{% endblock %}

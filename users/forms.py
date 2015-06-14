@@ -30,3 +30,9 @@ class UserCreateForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['name', 'first_name', 'telephone', 'country', 'city', 'index']

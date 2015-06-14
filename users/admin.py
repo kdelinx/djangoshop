@@ -10,10 +10,10 @@ class RUserAdmin(UserAdmin):
     form = UserCreateForm
     fieldsets = (
         (_('User'), {'fields': ('email', 'name', 'first_name', 'telephone',
-                                'country', 'city',)}),
+                                'country', 'city', 'index', 'password')}),
         (_('Permissions'),  {'fields': ('is_active', 'is_admin', 'is_superuser',)}),
     )
-    list_display = ('id', 'email', 'telephone', 'country', 'city',)
+    list_display = ('id', 'name', 'first_name', 'telephone', 'country', 'city', 'index',)
     list_filter = ('is_admin', 'country', 'city',)
     search_fields = ('email',)
     ordering = ('id',)

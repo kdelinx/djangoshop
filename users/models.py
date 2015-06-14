@@ -8,13 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 
 class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(
-        _('Name'),
+        'Имя',
         max_length=64,
         blank=True,
         null=True
     )
     first_name = models.CharField(
-        _('First name'),
+        'Фамилия',
         max_length=64,
         blank=True,
         null=True
@@ -25,7 +25,7 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         unique=True
     )
     telephone = models.CharField(
-        _('Telephone'),
+        'Телефон',
         max_length=16,
         blank=True,
         null=True
@@ -38,14 +38,20 @@ class User(AbstractClass, AbstractBaseUser, PermissionsMixin):
         default=True
     )
     country = models.CharField(
-        _('Country'),
+        'Страна',
         max_length=150,
         blank=True,
         null=True
     )
     city = models.CharField(
-        _('Town'),
+        'Город',
         max_length=150,
+        blank=True,
+        null=True
+    )
+    index = models.CharField(
+        'Индекс',
+        max_length=6,
         blank=True,
         null=True
     )
